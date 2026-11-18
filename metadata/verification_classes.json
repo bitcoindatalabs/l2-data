@@ -1,0 +1,7 @@
+{
+ "bitcoin_verified": "Read from Bitcoin blocks alone. Anyone with a Bitcoin node can recompute it.",
+ "l2_chain_verified": "Read from the L2's own chain alone (Liquid blocks). Anyone with an L2 node can recompute it.",
+ "cross_chain_verified": "Computed from a bitcoin_verified value and an l2_chain_verified value, joined by a stated rule (for example the L2 block mapped to a Bitcoin block by header time). Both inputs are public chain data; the join rule is in `method`.",
+ "inferred": "Depends on a modelling choice or heuristic named in `method` (for example a classification rule). Not a direct read of either chain.",
+ "operator_reported": "Taken from the operator's own statements or API. Not checked against a chain."
+}

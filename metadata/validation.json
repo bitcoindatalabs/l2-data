@@ -1,0 +1,513 @@
+{
+ "created_utc": "2026-11-18T18:07:31Z",
+ "schema_version": "1.0",
+ "l2": {
+  "liquid/liquidv1": {
+   "cutoff": {
+    "bitcoin_height": 976206,
+    "bitcoin_hash": "00000000000000000001867e22c3c462ddd71f91a71a8c3c98b703f238320a0e",
+    "bitcoin_time_utc": "2026-11-17T02:10:32+00:00",
+    "l2_height": 4148532,
+    "l2_time": 1794881410,
+    "l2_rule": "last Liquid block whose header time (running maximum) is <= the Bitcoin cutoff's header time"
+   },
+   "inputs": {
+    "custody_outputs.parquet": "9c24b35cd68dddb3600a28e0408796f600471bb4afc3a2e134de0181f583eeb5",
+    "federation_inputs.parquet": "54e6c70912837e4f98a64c05bae404cb0855f19edc1f74e8e368a910e5e83ba3",
+    "federation_txs.parquet": "cad455d224fd0e05115a71dd1717c5e10177482bcd1b18339f58fcb38e700459",
+    "federation_spend_outputs.parquet": "fd2638d1820632c60c0bf01dae997bce4d51565c4c44c4b99ca6a77890020769",
+    "pegin_seed_check.parquet": "628452f949526eac0e519b22e515d2fa20372cdc19ea79f5120a767c19bddcbb",
+    "reserve_by_block.parquet": "9d624e0602c190000ec8f60cffdee0d6c88fd83c28d0f704067dfd20d9e5e894",
+    "reserve_daily.parquet": "a8a805db8359493107eee6f5217c0ac2ed40176fa5cae04cb3a1101e036783f2",
+    "pegout_fulfilment.parquet": "04a09dccb56c859bb251edef281cca9bf87e1337f31991feffe55c90cf26fad1",
+    "pegout_daily.parquet": "88db386399f97f46b34ed4231749c7bf5839f7e7bf285ab981208d81e9fa92fd",
+    "pegout_halts.parquet": "d4086632b6b674985e961e431cfac735e3e7e73984693f8db413450156a87a83",
+    "unexplained_outflows.parquet": "8fd27021ed36148c59401a38a1bedd13866fca1ec3774139f30db1162f1fb323",
+    "lbtc_supply_by_height.parquet": "dbc4ab9880819e485e303175f374de1667d6750e521109ea26cb3b8ed9ff20cf",
+    "fedpeg_generations.json": "48d098612c54e5cdbf3ebd643bc4c83bd75051cebc52f174798c16c115410283"
+   }
+  }
+ },
+ "summary": {
+  "pass": 76,
+  "fail": 0,
+  "not_applicable": 3
+ },
+ "ok": true,
+ "checks": [
+  {
+   "group": "manifests",
+   "check": "liquid.tables_equal_manifest_sha256",
+   "status": "pass",
+   "detail": "12 tables checked in open_audit"
+  },
+  {
+   "group": "manifests",
+   "check": "liquid.manifests_record_no_failed_check",
+   "status": "pass",
+   "detail": "5 manifests, none failed"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_outputs_unique",
+   "status": "pass",
+   "detail": "155981 rows, 155981 distinct"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_spent_at_most_once",
+   "status": "pass",
+   "detail": "0 inputs spending >1 output; 0 outputs with >1 spend"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_none_spent_before_created",
+   "status": "pass",
+   "detail": "0"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_values_positive",
+   "status": "pass",
+   "detail": "0 without a positive value"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_spent_only_by_federation_paths",
+   "status": "pass",
+   "detail": "0 spent another way"
+  },
+  {
+   "group": "bdl-071",
+   "check": "emergency_spends_respect_csv",
+   "status": "pass",
+   "detail": "35 emergency spends; 0 with nSequence below the CSV, 0 younger than the CSV"
+  },
+  {
+   "group": "bdl-071",
+   "check": "federation_inputs_all_linked",
+   "status": "pass",
+   "detail": "0 without a resolved prevout"
+  },
+  {
+   "group": "bdl-071",
+   "check": "federation_inputs_spend_custody_outputs",
+   "status": "pass",
+   "detail": "155817 of 155817 inputs are the recorded spend of a custody output"
+  },
+  {
+   "group": "bdl-071",
+   "check": "federation_txs_all_have_fee",
+   "status": "pass",
+   "detail": "0"
+  },
+  {
+   "group": "bdl-071",
+   "check": "federation_spend_outputs_classified",
+   "status": "pass",
+   "detail": "0 unclassified"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_heights_contiguous_unique",
+   "status": "pass",
+   "detail": "540000..976206, 436207 rows"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_nonnegative",
+   "status": "pass",
+   "detail": "0 blocks below 0"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_gap_identity_exact",
+   "status": "pass",
+   "detail": "0 rows gap != reserve - supply; 0 with a residual"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_every_block_mapped_to_liquid",
+   "status": "pass",
+   "detail": "0 unmapped"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_recomputed_from_custody_outputs",
+   "status": "pass",
+   "detail": "21 heights (incl. 965,783, 965,804, 974,307 and the cutoff): reserve and UTXO count equal"
+  },
+  {
+   "group": "bdl-071",
+   "check": "reserve_supply_equals_lbtc_series",
+   "status": "pass",
+   "detail": "0 blocks whose supply differs from bdl-084's series"
+  },
+  {
+   "group": "bdl-071",
+   "check": "pegin_seeds_are_the_custody_pegins",
+   "status": "pass",
+   "detail": "117553 strong-checked seeds, 117553 custody peg-ins, 117553 joined"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_seed_txid_equals_txid",
+   "status": "pass",
+   "detail": "0 peg-in rows where seed_txid != txid (export drops seed_txid)"
+  },
+  {
+   "group": "bdl-072",
+   "check": "each_pegout_one_row",
+   "status": "pass",
+   "detail": "10439 rows, 10439 distinct peg-outs"
+  },
+  {
+   "group": "bdl-072",
+   "check": "each_payment_serves_one_pegout",
+   "status": "pass",
+   "detail": "10439 payments, 10439 distinct"
+  },
+  {
+   "group": "bdl-072",
+   "check": "payments_partitioned",
+   "status": "pass",
+   "detail": "10439 matched + 5 unexplained = 10444 vs 10444 external outputs"
+  },
+  {
+   "group": "bdl-072",
+   "check": "matched_values_equal",
+   "status": "pass",
+   "detail": "requested - paid 0 vs fee deducted 0"
+  },
+  {
+   "group": "bdl-072",
+   "check": "negative_delays_flagged",
+   "status": "pass",
+   "detail": "0 unflagged delays below -2 h"
+  },
+  {
+   "group": "bdl-072",
+   "check": "backlog_at_cutoff_equals_unpaid",
+   "status": "pass",
+   "detail": "0 unpaid vs backlog 0"
+  },
+  {
+   "group": "bdl-072",
+   "check": "pegouts_equal_supply_series",
+   "status": "pass",
+   "detail": "10439 peg-outs, 1421610486102 sats vs series 10439, 1421610486102"
+  },
+  {
+   "group": "bdl-084",
+   "check": "supply_heights_contiguous_unique",
+   "status": "pass",
+   "detail": "0..4149803, 4149804 rows"
+  },
+  {
+   "group": "bdl-084",
+   "check": "supply_identity",
+   "status": "pass",
+   "detail": "0 rows where supply != peg-ins - peg-outs - burns"
+  },
+  {
+   "group": "bdl-084",
+   "check": "running_totals_equal_sums",
+   "status": "pass",
+   "detail": "sums (1848560914973, 1422114463487, 1030319475) vs running (1848560914973, 1422114463487, 1030319475)"
+  },
+  {
+   "group": "bdl-084",
+   "check": "supply_nonnegative",
+   "status": "pass",
+   "detail": "0 heights below 0"
+  },
+  {
+   "group": "bdl-070",
+   "check": "chunk tx count, merkle root and header hash equal the node's",
+   "status": "not_applicable",
+   "detail": "bdl-070 (full-history Liquid chain lake) comes after the comment; v0.1 reads the bdl-083 import + bdl-084 node tail, whose checks are the bdl-084 group above and lbtc_supply_by_height_manifest.json"
+  },
+  {
+   "group": "bdl-070",
+   "check": "tx_key = height << 15 | tx_index unique; chunks complete (reruns skip, no duplicates)",
+   "status": "not_applicable",
+   "detail": "bdl-070 (full-history Liquid chain lake) comes after the comment; v0.1 reads the bdl-083 import + bdl-084 node tail, whose checks are the bdl-084 group above and lbtc_supply_by_height_manifest.json"
+  },
+  {
+   "group": "bdl-070",
+   "check": "the 2026 import (bdl-083) agrees with the full re-extraction",
+   "status": "not_applicable",
+   "detail": "bdl-070 (full-history Liquid chain lake) comes after the comment; v0.1 reads the bdl-083 import + bdl-084 node tail, whose checks are the bdl-084 group above and lbtc_supply_by_height_manifest.json"
+  },
+  {
+   "group": "common",
+   "check": "custody.schema",
+   "status": "pass",
+   "detail": "10 columns"
+  },
+  {
+   "group": "common",
+   "check": "custody.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "custody.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "custody.key_unique",
+   "status": "pass",
+   "detail": "2996 rows, 2996 distinct (l2, instance, utc_day)"
+  },
+  {
+   "group": "common",
+   "check": "liabilities.schema",
+   "status": "pass",
+   "detail": "9 columns"
+  },
+  {
+   "group": "common",
+   "check": "liabilities.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "liabilities.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "liabilities.key_unique",
+   "status": "pass",
+   "detail": "2996 rows, 2996 distinct (l2, instance, utc_day)"
+  },
+  {
+   "group": "common",
+   "check": "backing.schema",
+   "status": "pass",
+   "detail": "13 columns"
+  },
+  {
+   "group": "common",
+   "check": "backing.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "backing.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "backing.key_unique",
+   "status": "pass",
+   "detail": "2996 rows, 2996 distinct (l2, instance, utc_day)"
+  },
+  {
+   "group": "common",
+   "check": "flows.schema",
+   "status": "pass",
+   "detail": "20 columns"
+  },
+  {
+   "group": "common",
+   "check": "flows.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "flows.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "flows.key_unique",
+   "status": "pass",
+   "detail": "128137 rows, 128137 distinct (l2, instance, flow_id)"
+  },
+  {
+   "group": "common",
+   "check": "control.schema",
+   "status": "pass",
+   "detail": "15 columns"
+  },
+  {
+   "group": "common",
+   "check": "control.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "control.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "control.key_unique",
+   "status": "pass",
+   "detail": "8 rows, 8 distinct (l2, instance, regime, path)"
+  },
+  {
+   "group": "common",
+   "check": "timelock_exposure.schema",
+   "status": "pass",
+   "detail": "10 columns"
+  },
+  {
+   "group": "common",
+   "check": "timelock_exposure.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "timelock_exposure.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "timelock_exposure.key_unique",
+   "status": "pass",
+   "detail": "2996 rows, 2996 distinct (l2, instance, utc_day, path)"
+  },
+  {
+   "group": "common",
+   "check": "liveness.schema",
+   "status": "pass",
+   "detail": "10 columns"
+  },
+  {
+   "group": "common",
+   "check": "liveness.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "liveness.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "liveness.key_unique",
+   "status": "pass",
+   "detail": "2974 rows, 2974 distinct (l2, instance, utc_day, unit)"
+  },
+  {
+   "group": "common",
+   "check": "incidents.schema",
+   "status": "pass",
+   "detail": "19 columns"
+  },
+  {
+   "group": "common",
+   "check": "incidents.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "incidents.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "incidents.key_unique",
+   "status": "pass",
+   "detail": "17 rows, 17 distinct (incident_id)"
+  },
+  {
+   "group": "common",
+   "check": "scorecard.schema",
+   "status": "pass",
+   "detail": "13 columns"
+  },
+  {
+   "group": "common",
+   "check": "scorecard.identity_and_class_not_null",
+   "status": "pass",
+   "detail": "nulls {'l2': 0, 'instance': 0, 'verification_class': 0, 'method': 0}"
+  },
+  {
+   "group": "common",
+   "check": "scorecard.verification_class_known",
+   "status": "pass",
+   "detail": "all known"
+  },
+  {
+   "group": "common",
+   "check": "scorecard.key_unique",
+   "status": "pass",
+   "detail": "24 rows, 24 distinct (l2, instance, metric, window)"
+  },
+  {
+   "group": "common",
+   "check": "backing_equals_custody_minus_liabilities",
+   "status": "pass",
+   "detail": "2996 days, 0 differ"
+  },
+  {
+   "group": "common",
+   "check": "flows_pegins_equal_supply_series",
+   "status": "pass",
+   "detail": "117500 peg-ins, 1847872714059 sats vs series 117500, 1847872714059"
+  },
+  {
+   "group": "common",
+   "check": "flows_pegouts_equal_supply_series",
+   "status": "pass",
+   "detail": "10439 peg-outs, 1421610486102 sats vs series 1421610486102"
+  },
+  {
+   "group": "common",
+   "check": "flows_pending_pegins_equal_reserve_pending_claims",
+   "status": "pass",
+   "detail": "53 deposits, 618711475 sats vs reserve component 618711475"
+  },
+  {
+   "group": "common",
+   "check": "flows_exits_equal_federation_external_outputs",
+   "status": "pass",
+   "detail": "1822612939005 vs 1822612939005 sats"
+  },
+  {
+   "group": "common",
+   "check": "liveness_units_equal_l2_cutoff",
+   "status": "pass",
+   "detail": "4148532 blocks vs Liquid cutoff 4148532 (blocks 1..cutoff)"
+  },
+  {
+   "group": "common",
+   "check": "incidents_cover_every_block_below_liabilities",
+   "status": "pass",
+   "detail": "1 incidents, 8524 blocks vs 8524 blocks with gap < 0"
+  },
+  {
+   "group": "common",
+   "check": "scorecard_values_present",
+   "status": "pass",
+   "detail": "24 metrics"
+  },
+  {
+   "group": "common",
+   "check": "custody_last_day_is_cutoff",
+   "status": "pass",
+   "detail": "last day 2026-11-17 at 976206"
+  }
+ ]
+}
