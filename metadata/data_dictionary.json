@@ -1,5 +1,5 @@
 {
- "schema_version": "1.0",
+ "schema_version": "1.1",
  "conventions": {
   "amounts": "integer satoshis",
   "times": "UTC Unix seconds (chain header times)",
@@ -300,8 +300,8 @@
    ]
   },
   "control": {
-   "grain": "one row per custody regime per spending path",
-   "about": "Who can move the custody: each script regime, its spending paths, threshold, key count and timelock, when it was current, and how many keys changed from the previous regime.",
+   "grain": "one row per key set (regime) per spending path",
+   "about": "Who can move the custody, and who signs the L2's blocks: each key set, its spending paths, threshold, key count and timelock, when it was current, and how many keys changed from the previous one.",
    "columns": [
     {
      "name": "l2",
@@ -316,12 +316,17 @@
     {
      "name": "regime",
      "type": "string",
-     "meaning": "regime name (Liquid: fedpegscript generation)"
+     "meaning": "key set name (Liquid: federation_keysets.keyset, bdl-076)"
+    },
+    {
+     "name": "role",
+     "type": "string",
+     "meaning": "custody (the L2's peg script) | custody_change (a change script the custodian used, not an L2 parameter) | block_signing (the L2's block-signing script)"
     },
     {
      "name": "path",
      "type": "string",
-     "meaning": "normal | emergency"
+     "meaning": "normal | emergency (custody roles) | block_signing"
     },
     {
      "name": "threshold_m",
@@ -351,7 +356,7 @@
     {
      "name": "valid_from_l2_height",
      "type": "int64",
-     "meaning": "first L2 block where the regime is current"
+     "meaning": "first L2 block where the regime is current; null for custody_change (used on Bitcoin only: see method)"
     },
     {
      "name": "valid_to_l2_height",
@@ -494,7 +499,7 @@
   },
   "incidents": {
    "grain": "one row per detected incident",
-   "about": "Events found by fixed detection rules over the tables above (no editorial selection): reserve below liabilities, timelocked-path spends, unexplained outflows, block-production halts, redemption halts.",
+   "about": "Events found by fixed detection rules over the tables above (reserve below liabilities, timelocked-path spends, unexplained outflows, block-production halts, redemption halts), plus events disclosed by the operator and located on the chain (timelock_lapse), and events summarised by a forensic review (event_summary, coin_trace). The kind and detection_rule say which.",
    "columns": [
     {
      "name": "l2",
@@ -514,7 +519,7 @@
     {
      "name": "kind",
      "type": "string",
-     "meaning": "reserve_below_liabilities | emergency_path_spend | unexplained_outflow | block_production_halt | redemption_halt"
+     "meaning": "reserve_below_liabilities | emergency_path_spend | unexplained_outflow | block_production_halt | redemption_halt | timelock_lapse | event_summary | coin_trace"
     },
     {
      "name": "detection_rule",
@@ -580,6 +585,11 @@
      "name": "txids",
      "type": "list<item: string>",
      "meaning": "the transactions that define it (Bitcoin txids unless the kind is L2-side)"
+    },
+    {
+     "name": "references",
+     "type": "list<item: string>",
+     "meaning": "sources outside the chain data (operator statements, reviews); empty for rule-detected rows"
     },
     {
      "name": "verification_class",

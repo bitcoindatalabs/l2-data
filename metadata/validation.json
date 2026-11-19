@@ -1,6 +1,6 @@
 {
- "created_utc": "2026-11-18T18:07:31Z",
- "schema_version": "1.0",
+ "created_utc": "2026-11-19T06:32:44Z",
+ "schema_version": "1.1",
  "l2": {
   "liquid/liquidv1": {
    "cutoff": {
@@ -12,24 +12,26 @@
     "l2_rule": "last Liquid block whose header time (running maximum) is <= the Bitcoin cutoff's header time"
    },
    "inputs": {
-    "custody_outputs.parquet": "9c24b35cd68dddb3600a28e0408796f600471bb4afc3a2e134de0181f583eeb5",
-    "federation_inputs.parquet": "54e6c70912837e4f98a64c05bae404cb0855f19edc1f74e8e368a910e5e83ba3",
+    "custody_outputs.parquet": "23153ea5e4a71fab678f950c215bb5cb65c1a87533349662050d576e6dfff10a",
+    "federation_inputs.parquet": "3c02d48ede676b9a1b6f51a673453b2dad32395dc9360cdb06be7e1a1a3ab7c4",
     "federation_txs.parquet": "cad455d224fd0e05115a71dd1717c5e10177482bcd1b18339f58fcb38e700459",
     "federation_spend_outputs.parquet": "fd2638d1820632c60c0bf01dae997bce4d51565c4c44c4b99ca6a77890020769",
     "pegin_seed_check.parquet": "628452f949526eac0e519b22e515d2fa20372cdc19ea79f5120a767c19bddcbb",
-    "reserve_by_block.parquet": "9d624e0602c190000ec8f60cffdee0d6c88fd83c28d0f704067dfd20d9e5e894",
-    "reserve_daily.parquet": "a8a805db8359493107eee6f5217c0ac2ed40176fa5cae04cb3a1101e036783f2",
+    "reserve_by_block.parquet": "497823d71c70209d1fca75ba5bb6846e3839444ac3d5b24adddb3037f03f9504",
+    "reserve_daily.parquet": "b4e3bf07e20934d2656250e288cc9985874c77f2a17462114c784adf6fd967ff",
     "pegout_fulfilment.parquet": "04a09dccb56c859bb251edef281cca9bf87e1337f31991feffe55c90cf26fad1",
     "pegout_daily.parquet": "88db386399f97f46b34ed4231749c7bf5839f7e7bf285ab981208d81e9fa92fd",
     "pegout_halts.parquet": "d4086632b6b674985e961e431cfac735e3e7e73984693f8db413450156a87a83",
     "unexplained_outflows.parquet": "8fd27021ed36148c59401a38a1bedd13866fca1ec3774139f30db1162f1fb323",
     "lbtc_supply_by_height.parquet": "dbc4ab9880819e485e303175f374de1667d6750e521109ea26cb3b8ed9ff20cf",
-    "fedpeg_generations.json": "48d098612c54e5cdbf3ebd643bc4c83bd75051cebc52f174798c16c115410283"
+    "federation_keysets.parquet": "19505a74feca90c48e11363814188dc6786c08e0224cb5db51aad66bbc237dab",
+    "fedpeg_generations.json": "48d098612c54e5cdbf3ebd643bc4c83bd75051cebc52f174798c16c115410283",
+    "curated_incidents.json": "b847516e5a02b5d82354a138d596f967f6544b14006b0993a05cc3d31831638f"
    }
   }
  },
  "summary": {
-  "pass": 76,
+  "pass": 78,
   "fail": 0,
   "not_applicable": 3
  },
@@ -39,13 +41,13 @@
    "group": "manifests",
    "check": "liquid.tables_equal_manifest_sha256",
    "status": "pass",
-   "detail": "12 tables checked in open_audit"
+   "detail": "13 tables checked in open_audit"
   },
   {
    "group": "manifests",
    "check": "liquid.manifests_record_no_failed_check",
    "status": "pass",
-   "detail": "5 manifests, none failed"
+   "detail": "6 manifests, none failed"
   },
   {
    "group": "bdl-071",
@@ -154,6 +156,18 @@
    "check": "custody_seed_txid_equals_txid",
    "status": "pass",
    "detail": "0 peg-in rows where seed_txid != txid (export drops seed_txid)"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_csv_equals_own_script",
+   "status": "pass",
+   "detail": "155775 spent outputs: CSV = the revealed script's (0 differ); 164 unspent: CSV = their own script's (0 differ); 42 with unknown script bytes (0 not deposits); scripts from federation_keysets (bdl-076), CSV parsed from the bytes"
+  },
+  {
+   "group": "bdl-071",
+   "check": "custody_outputs_all_have_txid",
+   "status": "pass",
+   "detail": "0 custody outputs without their creating txid (bdl-098: btc_subset.py --creating-txs, then custody.py)"
   },
   {
    "group": "bdl-072",
@@ -339,7 +353,7 @@
    "group": "common",
    "check": "control.schema",
    "status": "pass",
-   "detail": "15 columns"
+   "detail": "16 columns"
   },
   {
    "group": "common",
@@ -357,7 +371,7 @@
    "group": "common",
    "check": "control.key_unique",
    "status": "pass",
-   "detail": "8 rows, 8 distinct (l2, instance, regime, path)"
+   "detail": "15 rows, 15 distinct (l2, instance, regime, path)"
   },
   {
    "group": "common",
@@ -411,7 +425,7 @@
    "group": "common",
    "check": "incidents.schema",
    "status": "pass",
-   "detail": "19 columns"
+   "detail": "20 columns"
   },
   {
    "group": "common",
@@ -429,7 +443,7 @@
    "group": "common",
    "check": "incidents.key_unique",
    "status": "pass",
-   "detail": "17 rows, 17 distinct (incident_id)"
+   "detail": "20 rows, 20 distinct (incident_id)"
   },
   {
    "group": "common",
@@ -453,7 +467,7 @@
    "group": "common",
    "check": "scorecard.key_unique",
    "status": "pass",
-   "detail": "24 rows, 24 distinct (l2, instance, metric, window)"
+   "detail": "26 rows, 26 distinct (l2, instance, metric, window)"
   },
   {
    "group": "common",
@@ -501,7 +515,7 @@
    "group": "common",
    "check": "scorecard_values_present",
    "status": "pass",
-   "detail": "24 metrics"
+   "detail": "26 metrics"
   },
   {
    "group": "common",

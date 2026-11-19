@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this dataset, please cite the release you used (its git tag and Zenodo DOI)."
 title: "Bitcoin Data Labs L2 Audit Dataset: Liquid Network custody, reserves, peg flows and incidents"
 type: dataset
-version: "v2026.11.18"
-date-released: 2026-11-18
+version: "v2026.11.19"
+date-released: 2026-11-19
 authors:
   - family-names: Kumar
     given-names: Saurabh
@@ -16,8 +16,8 @@ abstract: >-
   A reproducible audit of Bitcoin layer-2 systems from public chain data, starting with the Liquid Network:
   every Bitcoin output that has held Liquid reserves since 2018, the reserve against L-BTC outstanding at every
   Bitcoin block, every peg-in and peg-out with both legs and the delay between them, the federation's spending
-  paths and timelocks, block production, and incidents found by fixed rules. Release v0.1 runs to Bitcoin block
-  976,206 (2026-11-17) and Liquid block 4,148,532.
+  paths and timelocks, block production, and incidents. Release v0.1.1 runs to Bitcoin block 976,206 (2026-11-17)
+  and Liquid block 4,148,532; it corrects v0.1's emergency exposure for 2018-2022 (CHANGELOG.md).
 keywords:
   - Bitcoin
   - Liquid Network
