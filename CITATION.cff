@@ -4,6 +4,14 @@ title: "Bitcoin Data Labs L2 Audit Dataset: Liquid Network custody, reserves, pe
 type: dataset
 version: "v2026.11.19"
 date-released: 2026-11-19
+doi: 10.5281/zenodo.24429493
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24429493
+    description: "Release v0.1.1 (tag v2026.11.19)"
+  - type: doi
+    value: 10.5281/zenodo.24429492
+    description: "All releases (resolves to the latest)"
 authors:
   - family-names: Kumar
     given-names: Saurabh

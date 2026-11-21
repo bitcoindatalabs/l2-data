@@ -1,5 +1,7 @@
 # l2-data
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24429492.svg)](https://doi.org/10.5281/zenodo.24429492)
+
 The public, versioned dataset behind **L2 Watch**: an audit of Bitcoin layer-2 systems from public chain data alone.
 Liquid comes first; Ark and Spark will fill the same tables later.
 
@@ -11,8 +13,11 @@ known limits: [METHODS.md](METHODS.md). Changes and corrections between releases
 
 | Release | Tag | Bitcoin cutoff | Liquid cutoff | DOI |
 |---|---|---|---|---|
-| v0.1.1 | `v2026.11.19` | block 976,206 (2026-11-17 02:10:32 UTC) | block 4,148,532 | to be added after the Zenodo release |
+| v0.1.1 | `v2026.11.19` | block 976,206 (2026-11-17 02:10:32 UTC) | block 4,148,532 | [10.5281/zenodo.24429493](https://doi.org/10.5281/zenodo.24429493) |
 | v0.1 | `v2026.11.18` | same | same | superseded by v0.1.1, never published: its 2018–2022 emergency exposure is too low (CHANGELOG.md) |
+
+Zenodo keeps every release under one record: [10.5281/zenodo.24429492](https://doi.org/10.5281/zenodo.24429492)
+always resolves to the latest release; each release also has its own DOI (table above).
 
 **Cite a tag, never `main`.** A paper or public comment that quotes a number pins the release:
 - the tag (or its Zenodo DOI) in the citation;
